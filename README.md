@@ -9,15 +9,15 @@ Most but not all of these steps are completed for you — make sure you understa
 2.	Rank pages using a method of the PageRank object (defined in the section PageRank)
 3.	Normalize ranks to fall in the range [0.0, 1.0] using min-max (Appendix A – completed for you)
 4.	While the user enters a query other than “:quit”  . . .
-a.	Accept the user query as a string
-b.	Compute how well each page matches using the methods of the PageSearch object (defined in the section PageSearch)
-c.	Normalize match ratings to fall in the range [0.0, 1.0] using min-max (Appendix A) 
-d.	Compute the overall match as a mean of the pages rank and text-match. For your report you will be comparing and thus must implement each of the following means.
-i.	Arithmetic Mean
-ii.	Geometric Mean
-iii.	Harmonic Mean
-e.	Sort pages based on their overall match using scala.math.Ordering to support multiple options for computing the mean
-f.	Display the name and url of the top 10 results
+    a.  Accept the user query as a string
+    b.	Compute how well each page matches using the methods of the PageSearch object (defined in the section PageSearch)
+    c.	Normalize match ratings to fall in the range [0.0, 1.0] using min-max (Appendix A) 
+    d.	Compute the overall match as a mean of the pages rank and text-match. For your report you will be comparing and thus must implement each of the following means.
+        i.	Arithmetic Mean
+        ii.	Geometric Mean
+        iii.	Harmonic Mean
+    e.	Sort pages based on their overall match using scala.math.Ordering to support multiple options for computing the mean
+    f.	Display the name and url of the top 10 results
 
 ### [Part A] Ordering[SearchedWebPage] Objects — 15 points
 
@@ -51,8 +51,6 @@ NOTE: All listed methods are required, but you are permitted to write as many ot
 
 def count(pages: List[WebPage], query: List[String]): List[Double]
 This method should compute for each page the number of times any of the terms in the query appear as substrings of the page content. You may implement this to be case-sensitive or case-insensitive as you see fit. Your output list should correspond to your pages list such that with ith value of your output list is the number of term matches in the ith page of pages.
-
-### 
 
 ## Part B
 
