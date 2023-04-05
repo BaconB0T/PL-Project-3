@@ -16,7 +16,7 @@ import scala.util.Sorting
         val pages: Map[String, WebPage] = mapWebPages(loadWebPages()) // completed for you
 
         // TODO: Measure the importance of each page using one of the functions in PageRank
-        val rankedPages: List[RankedWebPage] = List() // call PageRank.???? here
+        val rankedPages: List[RankedWebPage] = PageRank.makeRankedPages(pages, PageRank.equal(pages)) // call PageRank.???? here. PageRank.equal(pages)
 
         // Get user input then perform search until ":quit" is entered
         var query: String = ""
@@ -43,11 +43,12 @@ import scala.util.Sorting
         }
     }
 
+// TODO: Undo dependency injection before turning in. Ethan added this.
 // Load a List of WebPage objects from the packaged prolandwiki.csv file
-def loadWebPages(): List[WebPage] = {
+def loadWebPages(filename: String = "proglangwiki.csv"): List[WebPage] = {
     // create an input stream to the proglangwiki.csv
     val fh = Source.fromInputStream(
-        getClass.getClassLoader.getResourceAsStream("proglangwiki.csv"))
+        getClass.getClassLoader.getResourceAsStream(filename))
     // load all pages from the file line by line
     val pages = (for line <- fh.getLines yield {
         val id::name::url::text::links = line.split(",").toList // warning, but will work
