@@ -5,13 +5,13 @@
 ### [Part A] Main Loop — 10 points
 
 Most but not all of these steps are  completed for you — make sure you understand where things are happening!
-1. [ ] Load WebPage map from resources
+1. [X] Load WebPage map from resources
 2. [ ] Rank pages using a method of the PageRank object (defined in the section PageRank) ([Part A](#page-ranking-part-a--30-points), [Part B](#page-ranking-part-b--30-points))
-3. [ ] Normalize ranks to fall in the range [0.0, 1.0] using min-max (Appendix A – completed for you)
+3. [X] Normalize ranks to fall in the range [0.0, 1.0] using min-max (Appendix A – completed for you)
 4. [ ] While the user enters a query other than “:quit”  . . .
     - [ ] Accept the user query as a string
     - [ ] Compute how well each page matches using the methods of the PageSearch object (defined in the section PageSearch)
-    - [ ] Normalize match ratings to fall in the range [0.0, 1.0] using min-max (Appendix A) 
+    - [X] Normalize match ratings to fall in the range [0.0, 1.0] using min-max (Appendix A) 
     - [ ] Compute the overall match as a mean of the pages rank and text-match. For your report you will be comparing and thus must implement each of the following means.
        - [ ] Arithmetic Mean
        - [ ] Geometric Mean
