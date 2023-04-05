@@ -6,7 +6,7 @@
 
 Most but not all of these steps are  completed for you — make sure you understand where things are happening!
 1. [ ] Load WebPage map from resources
-2. [ ] Rank pages using a method of the PageRank object (defined in the section PageRank)
+2. [ ] Rank pages using a method of the PageRank object (defined in the section PageRank) ([Part A](#page-ranking-part-a--30-points), [Part B](#page-ranking-part-b--30-points))
 3. [ ] Normalize ranks to fall in the range [0.0, 1.0] using min-max (Appendix A – completed for you)
 4. [ ] While the user enters a query other than “:quit”  . . .
     - [ ] Accept the user query as a string
@@ -19,7 +19,7 @@ Most but not all of these steps are  completed for you — make sure you underst
     - [ ] Sort pages based on their overall match using scala.math.Ordering to support multiple options for computing the mean
     - [ ] Display the name and url of the top 10 results
 
-### [Part A] Ordering[SearchedWebPage] Objects — 15 points
+#### [Part A] Ordering[SearchedWebPage] Objects — 15 points
 
 This part of the project will be completed in SortNorm.scala
 
@@ -34,7 +34,7 @@ The three comparison options you must implement are:
 Each of these will use those means as part of the comparison. In each case you will take the appropriate mean of each pages importance (from PageRank) and textual match (from PageSearch) and compare the averages. The page with the higher average is considered greater than the other.
 A simple example sorting pages based on their names has been provided for reference.
 
-### [Parts A & B] Page Ranking — 30 points
+### Page Ranking: Part A — 30 points
 
 One of the most important aspects of modern search is the relative weighting of pages. Certain pages are likely far more authoritative and desirable than others even if they do not match quite as well with the provided search term. For example, should a search query “Harvard” yield “harvard.edu” or “proudharvardgrad.cheaphosting.net”? Clearly the answer is the first result even if the second contains far more occurrences of the search term. That leaves the question of how do we know what pages are important?
 
@@ -43,12 +43,12 @@ One of the greatest benefits of the web for this task is the presence of hyperli
 You will implement a PageRank object with methods for the following three ranking methods.
 **NOTE**: All listed methods are required, but you are permitted to write as many others as you need. You should not use any mutable variables anywhere in these methods. After all methods are working, you should attempt to use parallel collections to provide a speed-up where appropriate.
 
-### [Part A] Equal Weighting — 10 points
+#### [Part A] Equal Weighting — 10 points
 
 def equal(pages: Map[String, WebPage]): Map[String: Double]
 This method is the simplest naïve approach of unweighted results. This should be implemented both for comparison to other methods and to help make progress possible on other parts of the project. This method should return a Map where each string of the input map of pages is mapped to a value of 1.0.
 
-### [Parts A & B] Page Search — 30 points
+### Page Search: Part A — 30 points
 
 Finally, the most familiar aspect of search — determining how closely a query matches a page’s content. There are numerous ways this can be done. We will follow an approach that starts from the simplest solutions and gradually introduce improvements until we have one of the most widely used algorithms. In each case we will divide our query into terms. Terms refer to individual components of the query which for our simple example will be the component words e.g. “Hello World”  List(“Hello”, “World”).
 
@@ -58,7 +58,7 @@ You will implement a PageSearch object with methods for the following three sear
 
 **NOTE**: All listed methods are required, but you are permitted to write as many others as you need. You should not use any mutable variables anywhere in these methods. After all methods are working, you should attempt to use parallel collections to provide a speed-up where appropriate.
 
-### [Part A] Simple Count — 10 points
+#### [Part A] Simple Count — 10 points
 
 def count(pages: List[WebPage], query: List[String]): List[Double]
 
@@ -66,7 +66,7 @@ This method should compute for each page the number of times any of the terms in
 
 ## Part B
 
-### [Parts A & B] Page Ranking — 30 points
+### Page Ranking: Part B — 30 points
 
 One of the most important aspects of modern search is the relative weighting of pages. Certain pages are likely far more authoritative and desirable than others even if they do not match quite as well with the provided search term. For example, should a search query “Harvard” yield “harvard.edu” or “proudharvardgrad.cheaphosting.net”? Clearly the answer is the first result even if the second contains far more occurrences of the search term. That leaves the question of how do we know what pages are important?
 
@@ -76,19 +76,19 @@ You will implement a PageRank object with methods for the following three rankin
 
 **NOTE**: All listed methods are required, but you are permitted to write as many others as you need. You should not use any mutable variables anywhere in these methods. After all methods are working, you should attempt to use parallel collections to provide a speed-up where appropriate.
 
-### [Part B] Indegree Weighting — 10 points
+#### [Part B] Indegree Weighting — 10 points
 
 def indegree(pages: Map[String, WebPage]): Map[String: Double]
 
 This method should map the id of each page in pages to the number of other pages that link to this page. That is, it should count the number of other pages for which this page’s id appears in that page’s list of links. This will need to be converted to a Double for compatibility with the general interface.
 
-### [Part B] PageRank Weighting — 10 points
+#### [Part B] PageRank Weighting — 10 points
 
 def pagerank(pages: Map[String, WebPage]): Map[String: Double]
 
 This method is an extension of the indegree method that accounts for differences in importance between the pages that link to a given page. Most simply a link from an important page should provide more weight than a link from a relatively obscure page. This as you might imagine can be difficult to compute and is usually done with linear algebra. For our purposes we will take the random walk approach outlined in Appendix B. In short, we drop a large number of independent “walkers” on random pages. These walkers then repeatedly choose a page the current page links to and go to the new page. The distribution of where these walkers are positioned after a large number of steps is the distribution of the importance of the pages in our system.
 
-### [Parts A & B] Page Search — 30 points
+### Page Search: Part B — 30 points
 
 Finally, the most familiar aspect of search — determining how closely a query matches a page’s content. There are numerous ways this can be done. We will follow an approach that starts from the simplest solutions and gradually introduce improvements until we have one of the most widely used algorithms. In each case we will divide our query into terms. Terms refer to individual components of the query which for our simple example will be the component words e.g. “Hello World”  List(“Hello”, “World”).
 
@@ -98,13 +98,13 @@ You will implement a PageSearch object with methods for the following three sear
 
 **NOTE**: All listed methods are required, but you are permitted to write as many others as you need. You should not use any mutable variables anywhere in these methods. After all methods are working, you should attempt to use parallel collections to provide a speed-up where appropriate.
 
-### [Part B] Term Frequency — 10 points
+#### [Part B] Term Frequency — 10 points
 
 def tf(pages: List[WebPage], query: List[String]): List[Double]
 
 This method is an enhanced version of the count method. Each value of the output should be equal to the result of the count method for that page divided by the number of characters in the page text.
 
-### [Part B] TF-IDF — 10 points
+#### [Part B] TF-IDF — 10 points
 
 def tfidf(pages: List[WebPage], query: List[String]): List[Double]
 
