@@ -8,7 +8,7 @@ class PageSearchTest extends AnyFunSuite with Matchers with BeforeAndAfterAll {
         val testFileName: String = "testPages.csv"
 
         pages = mapWebPages(loadWebPages(testFileName))
-        rankedPages = PageRank.makeRankedPages(pages, PageRank.equal(pages))
+        rankedPages = PageRank.makeRankedPages(pages, PageRank.equal)
     }
     test("Count should return a list of the number of times any of the terms appeared in each page in the same order as given") {
         assert(PageSearch.count(this.rankedPages, List("subroutine")) == List(0, 1, 4, 1, 0))

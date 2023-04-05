@@ -22,8 +22,8 @@ object PageRank {
         Map() // TODO: remove this stub and implement this method
     }
 
-    def makeRankedPages(pages: Map[String, WebPage], pageRankings: Map[String, Double]): List[RankedWebPage] = {
-        (for (pageId -> ranking) <- pageRankings yield RankedWebPage(pages.get(pageId).get, ranking))
+    def makeRankedPages(pages: Map[String, WebPage], rankWith: Map[String, WebPage] => Map[String, Double]): List[RankedWebPage] = {
+        (for (pageId -> ranking) <- rankWith(pages) yield RankedWebPage(pages.get(pageId).get, ranking))
           .toList
     }
 }
