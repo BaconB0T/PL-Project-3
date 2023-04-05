@@ -13,8 +13,8 @@ object SearchedWebPageNormalize {
         val matches = (for page <- pages yield page.textmatch)
 
         // use minimum and maximum values to create a normalizing closures
-        def normWeight(x: Double): Double = (x-weights.min)/(weights.max-weights.min)
-        def normMatch(x: Double): Double = (x-matches.min)/(matches.max-matches.min)
+        def normWeight(x: Double): Double = (x-weights.min)/(weights.max-weights.min+0.00001)
+        def normMatch(x: Double): Double = (x-matches.min)/(matches.max-matches.min+0.00001)
 
         // use these helper functions to normalize pages
         (for (page <- pages) yield 
