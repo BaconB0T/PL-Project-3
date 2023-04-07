@@ -28,4 +28,8 @@ object PageSearch {
     def tfidf(pages: List[RankedWebPage], query: List[String]): List[Double] = {
         List() // TODO: implement this method and remove this stub
     }
+
+    def makeSearchedPages(rankedPages: List[RankedWebPage], textmatch: List[Double]): List[SearchedWebPage] = {
+        rankedPages.zip(textmatch).map(x => SearchedWebPage(x._1, x._2))
+    }
 }
