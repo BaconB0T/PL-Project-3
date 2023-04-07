@@ -26,4 +26,9 @@ object PageRank {
         (for (pageId -> ranking) <- rankWith(pages) yield RankedWebPage(pages.get(pageId).get, ranking))
           .toList
     }
+
+    def makeRankedPages(pages: Map[String, WebPage], rankings: Map[String, Double]): List[RankedWebPage] = {
+        (for (pageId -> ranking) <- rankings yield RankedWebPage(pages.get(pageId).get, ranking))
+          .toList
+    }
 }
