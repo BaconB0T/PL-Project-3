@@ -1,5 +1,6 @@
 import scala.math.log
-import scala.collection.parallel.CollectionConverters._
+import scala.collection.parallel.CollectionConverters.*
+import scala.language.postfixOps
 
 object PageSearch {
     /**
@@ -7,8 +8,18 @@ object PageSearch {
      * @param query  a list of search terms to be counted in those pages
      * @return       a list of the number of times any of the terms appeared in each page in the same order as given
      */
-    def count(pages: List[RankedWebPage], query: List[String]): List[Double] = {
-        List() // TODO: implement this method and remove this stub
+    def count(pages: List[RankedWebPage], query: List[String]): List[Double] = for page <- pages yield{
+        def countPage(page: RankedWebPage, query: List[String]): Double = {
+            val d: Double = if query.length > 1 then {
+                "(?i)".concat(query.head).r.findAllIn(page.text).length + countPage(page, query.tail)
+            }
+            else "(?i)".concat(query.head).r.findAllIn(page.text).length
+            d
+        }
+        countPage(page, query)
+
+
+
     }
 
     /**
