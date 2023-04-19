@@ -6,18 +6,18 @@
 
 Most but not all of these steps are  completed for you — make sure you understand where things are happening!
 1. [X] Load WebPage map from resources
-2. [ ] Rank pages using a method of the PageRank object (defined in the section PageRank) ([Part A](#page-ranking-part-a--30-points), [Part B](#page-ranking-part-b--30-points))
+2. [X] Rank pages using a method of the PageRank object (defined in the section PageRank) ([Part A](#page-ranking-part-a--30-points), [Part B](#page-ranking-part-b--30-points))
 3. [X] Normalize ranks to fall in the range [0.0, 1.0] using min-max (Appendix A – completed for you)
-4. [ ] While the user enters a query other than “:quit”  . . .
-    - [ ] Accept the user query as a string
+4. [X] While the user enters a query other than “:quit”  . . .
+    - [X] Accept the user query as a string
     - [ ] Compute how well each page matches using the methods of the PageSearch object (defined in the section PageSearch)
     - [X] Normalize match ratings to fall in the range [0.0, 1.0] using min-max (Appendix A) 
     - [ ] Compute the overall match as a mean of the pages rank and text-match. For your report you will be comparing and thus must implement each of the following means.
-       - [ ] Arithmetic Mean
+       - [X] Arithmetic Mean
        - [ ] Geometric Mean
-       - [ ] Harmonic Mean
-    - [ ] Sort pages based on their overall match using scala.math.Ordering to support multiple options for computing the mean
-    - [ ] Display the name and url of the top 10 results
+       - [X] Harmonic Mean
+    - [X] Sort pages based on their overall match using scala.math.Ordering to support multiple options for computing the mean
+    - [X] Display the name and url of the top 10 results
 
 #### [Part A] Ordering[SearchedWebPage] Objects — 15 points
 
@@ -27,8 +27,8 @@ You are required to sort your SearchedWebPage objects in the main loop using thr
 https://www.scala-lang.org/api/3.1.0/scala/math/Ordering.html 
 https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html 
 The three comparison options you must implement are:
-- [ ] Harmonic
-- [ ] Arithmetic
+- [X] Harmonic
+- [X] Arithmetic
 - [ ] Geometric means. 
 
 Each of these will use those means as part of the comparison. In each case you will take the appropriate mean of each pages importance (from PageRank) and textual match (from PageSearch) and compare the averages. The page with the higher average is considered greater than the other.
