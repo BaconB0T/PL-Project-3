@@ -1,6 +1,7 @@
 import org.scalatest.matchers.must.Matchers
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.funsuite.AnyFunSuite
+
 class PageSearchTest extends AnyFunSuite with Matchers with BeforeAndAfterAll {
     var pages: Map[String, WebPage] = Map()
     var rankedPages: List[RankedWebPage] = List()
@@ -10,12 +11,35 @@ class PageSearchTest extends AnyFunSuite with Matchers with BeforeAndAfterAll {
         pages = mapWebPages(loadWebPages(testFileName))
         rankedPages = PageRank.makeRankedPages(pages, PageRank.equal).sortBy(_.id)
 
-        assert(pages.toList.length == rankedPages.length)
+        pages must have size rankedPages.length
     }
     test("Count should return a list of the number of times any of the terms appeared in each page in the same order as given") {
-        assert(PageSearch.count(this.rankedPages, List("subroutine")) == List(0.0, 4.0, 5.0, 1.0, 0.0))
-        assert(PageSearch.count(this.rankedPages, List("language")) == List(11.0, 6.0, 28.0, 14.0, 14.0))
-        assert(PageSearch.count(this.rankedPages, List("asd")) == List(0, 0, 0, 0, 0))
+        val expectedValues: Map[String, Map[String, Double]] =
+            List(
+                ("subroutine", List(
+                    ("26e3cfd86d89a511", 0.0), ("9316632bd3f17e5f", 4.0), ("dbdfed4f2a476b3d", 1.0),
+                    ("d9b660ed4dddb0a9", 5.0), ("ef2385f729d7871f", 0.0), ("b4637e99e79eae92", 0.0),
+                    ("7abb92702b0f74a0", 0.0), ("3653ceefecb816c4", 0.0)
+                ).toMap),
+                ("asd", List(
+                    ("26e3cfd86d89a511", 0.0), ("9316632bd3f17e5f", 0.0), ("dbdfed4f2a476b3d", 0.0),
+                    ("d9b660ed4dddb0a9", 0.0), ("ef2385f729d7871f", 0.0), ("b4637e99e79eae92", 0.0),
+                    ("7abb92702b0f74a0", 0.0), ("3653ceefecb816c4", 0.0)
+                ).toMap),
+                ("language", List(
+                    ("26e3cfd86d89a511", 11.0), ("9316632bd3f17e5f", 6.0), ("dbdfed4f2a476b3d", 14.0),
+                    ("d9b660ed4dddb0a9", 28.0), ("ef2385f729d7871f", 14.0), ("b4637e99e79eae92", 21.0),
+                    ("7abb92702b0f74a0", 33.0), ("3653ceefecb816c4", 88.0)
+                ).toMap)
+            ).toMap
+        // Iterate through the 3 terms to search and generate the weights using `PageSearch.count`.
+        // Then zip the weights with the pageIds so we can compare each page's expected value with
+        // the value we created.
+        for (searchTerm, expectedWeights) <- expectedValues do {
+            val weightedSearch: List[Double] = PageSearch.count(this.rankedPages, List(searchTerm))
+            val searchMap: Map[String, Double] = this.rankedPages.map(_.id).zip(weightedSearch).toMap
+            searchMap must contain allElementsOf expectedWeights
+        }
     }
 //    test("makeSearchedWebPage should return a list of searchedWebPages") {
 //        val textmatch: List[Double] = PageSearch.count(this.rankedPages, List("subroutine"))
