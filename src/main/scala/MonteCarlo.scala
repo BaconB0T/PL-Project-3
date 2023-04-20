@@ -1,5 +1,6 @@
 import scala.annotation.tailrec
 import scala.util.Random
+import scala.collection.parallel.CollectionConverters._
 
 enum State:
   case  //Start,      // get a random page, update rankings, set state = HasLinks, DON'T increment step
