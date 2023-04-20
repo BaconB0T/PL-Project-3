@@ -30,10 +30,10 @@ object PageSearch {
     def tf(pages: List[RankedWebPage], query: List[String]): List[Double] = for page <- pages yield{
         def countPageTf(page: RankedWebPage, query: List[String]): Double = {
             val d: Double = if query.length > 1 then {
-                "(?i)".concat(query.head).r.findAllIn(page.text).length/page.text.length + countPageTf(page, query.tail)
+                "(?i)".concat(query.head).r.findAllIn(page.text).length + countPageTf(page, query.tail)
             }
-            else "(?i)".concat(query.head).r.findAllIn(page.text).length/page.text.length
-            d
+            else "(?i)".concat(query.head).r.findAllIn(page.text).length
+            d/page.text.length
         }
         countPageTf(page, query)
     }
@@ -53,10 +53,10 @@ object PageSearch {
         }
         def countTfidf(page: RankedWebPage, query: List[String]): Double = {
             val d: Double = if query.length > 1 then {
-                "(?i)".concat(query.head).r.findAllIn(page.text).length*idfs(query).head/page.text.length + countTfidf(page, query.tail)
+                "(?i)".concat(query.head).r.findAllIn(page.text).length*idfs(query).head + countTfidf(page, query.tail)
             }
-            else "(?i)".concat(query.head).r.findAllIn(page.text).length*idfs(query).head/page.text.length
-            d
+            else "(?i)".concat(query.head).r.findAllIn(page.text).length*idfs(query).head
+            d/page.text.length
         }
         for page <- pages yield {
             countTfidf(page, query)
