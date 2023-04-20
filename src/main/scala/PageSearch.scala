@@ -48,7 +48,7 @@ object PageSearch {
         def idfs(query: List[String]): List[Double] = for term <- query yield {
             val allPages: List[Double] = for page <- pages yield if page.text.contains(term) then 1 else 0
             val sum: Double = allPages.foldLeft(0.0)(_+_)
-            val idf: Double = log10(pages.length/(sum+1)/log10(2))
+            val idf: Double = log10(pages.length/(sum+1)) / log10(2)
             idf
         }
         def countTfidf(page: RankedWebPage, query: List[String]): Double = {
